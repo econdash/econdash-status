@@ -44,7 +44,6 @@ sites:
 status-website:
   cname: status.econdash.org
   logoUrl: https://econdash.org/icon.png
-  favicon: https://econdash.org/icon.png
   name: EconDash Status
   introTitle: "**EconDash** service status"
   introMessage: >-
