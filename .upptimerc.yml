@@ -30,6 +30,8 @@ sites:
   - name: llms.txt
     url: https://econdash.org/llms.txt
     maxResponseTime: 3000
+    expectedStatusCodes:
+      - 201 # DRILL: revert after the alert
   - name: Sitemap
     url: https://econdash.org/sitemap.xml
     maxResponseTime: 10000
