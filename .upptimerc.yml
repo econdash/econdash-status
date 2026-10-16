@@ -41,6 +41,7 @@ sites:
     url: https://econdash.org/openapi.json
     maxResponseTime: 3000
 
+# No raw "<" in intro texts: sapper export then silently skips index.html.
 status-website:
   cname: status.econdash.org
   logoUrl: https://econdash.org/icon.png
@@ -49,8 +50,8 @@ status-website:
   introMessage: >-
     Live availability and response times of [econdash.org](https://econdash.org), its data API and
     agent payments (x402 / MPP), checked every 5 minutes from outside our server.
-    **Service level objectives:** site and API availability ≥ 99.5% per month;
-    p95 time to first byte of chart pages < 400 ms.
+    **Service level objectives:** site and API availability at least 99.5% per month;
+    p95 time to first byte of chart pages under 400 ms.
   navbar:
     - title: Status
       href: /
