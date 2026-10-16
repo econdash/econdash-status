@@ -1,31 +1,64 @@
-# Change these first
-owner: upptime # Your GitHub organization or username, where this repository lives
-repo: upptime # The name of this repository
+# Upptime for econdash.org (ECO-66). Docs: https://upptime.js.org/docs/configuration
+owner: econdash
+repo: econdash-status
 
+# Checks run from GitHub Actions runners every 5 minutes (GitHub's minimum).
+# USER_AGENT secret = "EconDash-Agent/status …", which nginx already exempts from the bot block ($our_ua).
 sites:
-  - name: Google
-    url: https://www.google.com
-  - name: Wikipedia
-    url: https://en.wikipedia.org
-  - name: Hacker News
-    url: https://news.ycombinator.com
-  - name: Secret Site
-    url: $SECRET_SITE
+  - name: Website
+    url: https://econdash.org/
+    maxResponseTime: 5000
+  - name: Explore dashboard
+    url: https://econdash.org/explore
+    maxResponseTime: 5000
+  - name: Chart page (data rendered)
+    url: https://econdash.org/chart/gdp-nominal/USA
+    maxResponseTime: 5000
+    # Dataset JSON-LD is rendered only when the series has data: catches "200 with an empty chart".
+    __dangerous__body_down_if_text_missing: '"temporalCoverage"'
+  - name: Data API
+    url: https://econdash.org/api/v1/timeseries/world_bank__gdp_nominal?country=USA&limit=1
+    maxResponseTime: 3000
+    __dangerous__body_down_if_text_missing: '"data_points"'
+  - name: Agent payments (x402/MPP 402)
+    url: https://econdash.org/api/v1/m2m/stats
+    expectedStatusCodes:
+      - 402
+    maxResponseTime: 3000
+    # Exactly 402 with the payment challenge, not any 4xx and not an open 200.
+    __dangerous__body_down_if_text_missing: '"x402-v2"'
+  - name: llms.txt
+    url: https://econdash.org/llms.txt
+    maxResponseTime: 3000
+  - name: Sitemap
+    url: https://econdash.org/sitemap.xml
+    maxResponseTime: 10000
+  - name: Data updates feed
+    url: https://econdash.org/feeds/updates.xml
+    maxResponseTime: 3000
+    __dangerous__body_down_if_text_missing: "<feed"
+  - name: OpenAPI spec
+    url: https://econdash.org/openapi.json
+    maxResponseTime: 3000
 
 status-website:
-  # Add your custom domain name, or remove the `cname` line if you don't have a domain
-  # Uncomment the `baseUrl` line if you don't have a custom domain and add your repo name there
-  cname: demo.upptime.js.org
-  # baseUrl: /your-repo-name
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: Upptime
-  introTitle: "**Upptime** is the open-source uptime monitor and status page, powered entirely by GitHub."
-  introMessage: This is a sample status page which uses **real-time** data from our [GitHub repository](https://github.com/upptime/upptime). No server required — just GitHub Actions, Issues, and Pages. [**Get your own for free**](https://github.com/upptime/upptime)
+  cname: status.econdash.org
+  logoUrl: https://econdash.org/icon.png
+  favicon: https://econdash.org/icon.png
+  name: EconDash Status
+  introTitle: "**EconDash** service status"
+  introMessage: >-
+    Live availability and response times of [econdash.org](https://econdash.org), its data API and
+    agent payments (x402 / MPP), checked every 5 minutes from outside our server.
+    **Service level objectives:** site and API availability ≥ 99.5% per month;
+    p95 time to first byte of chart pages < 400 ms.
   navbar:
     - title: Status
       href: /
+    - title: EconDash
+      href: https://econdash.org
+    - title: API docs
+      href: https://econdash.org/docs/endpoints
     - title: GitHub
       href: https://github.com/$OWNER/$REPO
 
-# Upptime also supports notifications, assigning issues, and more
-# See https://upptime.js.org/docs/configuration
