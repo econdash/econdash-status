@@ -50,8 +50,7 @@ status-website:
   introMessage: >-
     Live availability and response times of [econdash.org](https://econdash.org), its data API and
     agent payments (x402 / MPP), checked every 5 minutes from outside our server.
-    **Service level objectives:** site and API availability at least 99.5% per month;
-    p95 time to first byte of chart pages under 400 ms.
+    **Service level objective:** site and API availability at least 99.5% per month.
   navbar:
     - title: Status
       href: /
