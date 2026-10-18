@@ -1,7 +1,7 @@
 url: https://econdash.org/api/v1/timeseries/world_bank__gdp_nominal?country=USA&limit=1
 status: up
 code: 200
-responseTime: 481
-lastUpdated: 2026-10-18T00:32:17.401Z
+responseTime: 480
+lastUpdated: 2026-10-18T16:45:11.199Z
 startTime: 2026-10-16T12:51:12.043Z
 generator: Upptime <https://github.com/upptime/upptime>
