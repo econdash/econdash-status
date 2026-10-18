@@ -50,6 +50,8 @@ sites:
     headers:
       - "Content-Type: application/json"
       - "Accept: application/json, text/event-stream"
+      # With custom headers Upptime sends its own User-Agent (upptime.js.org); name ours.
+      - "User-Agent: EconDash-Agent/status (+https://status.econdash.org; Upptime)"
     body: '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"EconDash-Agent/status","version":"1"}}}'
     maxResponseTime: 3000
     __dangerous__body_down_if_text_missing: '"serverInfo"'
@@ -59,6 +61,8 @@ sites:
     headers:
       - "Content-Type: application/json"
       - "Accept: application/json, text/event-stream"
+      # With custom headers Upptime sends its own User-Agent (upptime.js.org); name ours.
+      - "User-Agent: EconDash-Agent/status (+https://status.econdash.org; Upptime)"
     body: '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
     maxResponseTime: 3000
     __dangerous__body_down_if_text_missing: '"get_indicator_series"'
@@ -68,6 +72,8 @@ sites:
     headers:
       - "Content-Type: application/json"
       - "Accept: application/json, text/event-stream"
+      # With custom headers Upptime sends its own User-Agent (upptime.js.org); name ours.
+      - "User-Agent: EconDash-Agent/status (+https://status.econdash.org; Upptime)"
     body: '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_indicator_series","arguments":{"indicator":"gdp-nominal","country":"USA","year":2020}}}'
     maxResponseTime: 3000
     # A tool error (no data, database down) comes back as HTTP 200 with "isError":true.
