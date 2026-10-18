@@ -71,7 +71,7 @@ sites:
     body: '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_indicator_series","arguments":{"indicator":"gdp-nominal","country":"USA","year":2020}}}'
     maxResponseTime: 3000
     # A tool error (no data, database down) comes back as HTTP 200 with "isError":true.
-    __dangerous__body_down_if_text_missing: '"isError":drill'
+    __dangerous__body_down_if_text_missing: '"isError":false'
 
 # No raw "<" in intro texts: sapper export then silently skips index.html.
 status-website:
