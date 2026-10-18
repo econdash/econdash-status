@@ -1,0 +1,25 @@
+# Telegram alerts for the Upptime checks as rich messages in Russian.
+# Upptime opens an issue labelled "status" when a check goes down and closes it when the
+# check is back up; this workflow turns both events into one Telegram message. It runs on
+# GitHub, so the alert arrives even when our server is down. Upptime's own Telegram
+# notifier is off (no NOTIFICATION_TELEGRAM secret), so there are no duplicates.
+# Not one of Upptime's workflow files: update-template keeps it.
+name: Telegram alerts
+on:
+  issues:
+    types: [opened, closed]
+permissions:
+  contents: read
+jobs:
+  notify:
+    if: contains(github.event.issue.labels.*.name, 'status')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+      - name: Send the alert
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.NOTIFICATION_TELEGRAM_BOT_KEY }}
+          TELEGRAM_CHAT_IDS: ${{ secrets.NOTIFICATION_TELEGRAM_CHAT_ID }}
+        run: python3 .github/scripts/telegram_alert.py "$GITHUB_EVENT_PATH"
