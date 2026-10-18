@@ -40,6 +40,38 @@ sites:
   - name: OpenAPI spec
     url: https://econdash.org/openapi.json
     maxResponseTime: 3000
+  # MCP server for AI assistants (ECO-84): initialize, tools/list and one data call.
+  # Stateless transport, so each check is one POST. The User-Agent stays EconDash-Agent/status,
+  # which the MCP metrics count as our own traffic, apart from users. tools/call answers come
+  # from a 10-minute cache, so a database outage shows here within 10 minutes.
+  - name: MCP initialize
+    url: https://mcp.econdash.org/mcp
+    method: POST
+    headers:
+      - "Content-Type: application/json"
+      - "Accept: application/json, text/event-stream"
+    body: '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"EconDash-Agent/status","version":"1"}}}'
+    maxResponseTime: 3000
+    __dangerous__body_down_if_text_missing: '"serverInfo"'
+  - name: MCP tools/list
+    url: https://mcp.econdash.org/mcp
+    method: POST
+    headers:
+      - "Content-Type: application/json"
+      - "Accept: application/json, text/event-stream"
+    body: '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+    maxResponseTime: 3000
+    __dangerous__body_down_if_text_missing: '"get_indicator_series"'
+  - name: MCP tools/call (data)
+    url: https://mcp.econdash.org/mcp
+    method: POST
+    headers:
+      - "Content-Type: application/json"
+      - "Accept: application/json, text/event-stream"
+    body: '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_indicator_series","arguments":{"indicator":"gdp-nominal","country":"USA","year":2020}}}'
+    maxResponseTime: 3000
+    # A tool error (no data, database down) comes back as HTTP 200 with "isError":true.
+    __dangerous__body_down_if_text_missing: '"isError":false'
 
 # No raw "<" in intro texts: sapper export then silently skips index.html.
 status-website:
