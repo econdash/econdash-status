@@ -203,18 +203,16 @@
     "icon": "https://icons.duckduckgo.com/ip3/mcp.econdash.org.ico",
     "slug": "mcp-tools-call-data",
     "status": "up",
-    "uptime": "74.74%",
-    "uptimeDay": "74.74%",
-    "uptimeWeek": "74.74%",
-    "uptimeMonth": "74.74%",
-    "uptimeYear": "74.74%",
+    "uptime": "100.00%",
+    "uptimeDay": "100.00%",
+    "uptimeWeek": "100.00%",
+    "uptimeMonth": "100.00%",
+    "uptimeYear": "100.00%",
     "time": 494,
     "timeDay": 494,
     "timeWeek": 494,
     "timeMonth": 494,
     "timeYear": 494,
-    "dailyMinutesDown": {
-      "2026-10-18": 3
-    }
+    "dailyMinutesDown": {}
   }
 ]
