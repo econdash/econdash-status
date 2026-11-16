@@ -2,7 +2,9 @@
 owner: econdash
 repo: econdash-status
 
-# Checks run from GitHub Actions runners every 5 minutes (GitHub's minimum).
+# Checks run from GitHub Actions runners. The cron asks for every 5 minutes (GitHub's minimum), but
+# GitHub drops most of these scheduled runs: in practice 5-8 runs a day (measured 17.10-16.11.2026).
+# Fast detection is the local health-check.sh (every 10 minutes); this layer catches a fully hung server.
 # USER_AGENT secret = "EconDash-Agent/status …", which nginx already exempts from the bot block ($our_ua).
 sites:
   - name: Website
@@ -87,7 +89,7 @@ status-website:
   introTitle: "**EconDash** service status"
   introMessage: >-
     Live availability and response times of [econdash.org](https://econdash.org), its data API and
-    agent payments (x402 / MPP), checked every 5 minutes from outside our server.
+    agent payments (x402 / MPP), checked several times a day from outside our server.
     **Service level objective:** site and API availability at least 99.5% per month.
   navbar:
     - title: Status
